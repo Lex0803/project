@@ -1,6 +1,6 @@
 
-onderwijsniveau_regio2023 <- read.csv("C:/Users/Veerman/Downloads/Hoogst_behaald_onderwijsniveau__regio_05062025_113647.csv", sep=";")
-werkeloosheid_provincie <- read.csv2("C:/Users/Veerman/Downloads/Werklozename (% van beroepsbevolking).csv")
+
+
 getwd()
 
 # 1. Load required packages
@@ -9,7 +9,7 @@ library(readr)
 library(stringr)
 
 # 2. Load the dataset 
-df <- read.csv("Werkloosheidpercentage.csv", sep = ";", stringsAsFactors = FALSE)
+df <- read.csv2("Werkloosheidpercentage.csv")
 
 # 3. Rename the first column
 colnames(df)[1] <- "Kwartaal"
@@ -37,14 +37,14 @@ print(df_yearly)
 write.csv(df_yearly, "Werkloosheid_per_jaar.csv", row.names = FALSE)
 
 
-Df2015=read.csv("2015_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2016=read.csv("2016_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2017=read.csv("2017_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2018=read.csv("2018_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2019=read.csv("2019_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2020=read.csv("2020_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2021=read.csv("2021_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2022=read.csv("2022_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
-Df2023=read.csv("2023_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2015=read.csv2("2015_onderwijsniveau.csv")
+Df2016=read.csv2("2016_onderwijsniveau.csv")
+Df2017=read.csv2("2017_onderwijsniveau.csv")
+Df2018=read.csv2("2018_onderwijsniveau.csv")
+Df2019=read.csv2("2019_onderwijsniveau.csv")
+Df2020=read.csv2("2020_onderwijsniveau.csv")
+Df2021=read.csv2("2021_onderwijsniveau.csv")
+Df2022=read.csv2("2022_onderwijsniveau.csv")
+Df2023=read.csv2("2023_onderwijsniveau.csv")
 Combined_Df=rbind(Df2015, Df2016, Df2017, Df2018, Df2019, Df2020, Df2021,Df2022,Df2023)
-write.csv(Combined_Df,"Totaal onderwijsniveau.csv", row.names = FALSE)
+write.csv(Combined_Df,"Totaal_onderwijsniveau.csv", row.names = FALSE)
