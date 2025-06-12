@@ -35,3 +35,16 @@ print(df_yearly)
 
 # 8. Optional: Export to CSV
 write.csv(df_yearly, "Werkloosheid_per_jaar.csv", row.names = FALSE)
+
+
+Df2015=read.csv("2015_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2016=read.csv("2016_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2017=read.csv("2017_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2018=read.csv("2018_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2019=read.csv("2019_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2020=read.csv("2020_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2021=read.csv("2021_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2022=read.csv("2022_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Df2023=read.csv("2023_onderwijsniveau.csv",sep = ";",stringsAsFactors = FALSE)
+Combined_Df=rbind(Df2015, Df2016, Df2017, Df2018, Df2019, Df2020, Df2021,Df2022,Df2023)
+write.csv(Combined_Df,"Totaal onderwijsniveau.csv", row.names = FALSE)
