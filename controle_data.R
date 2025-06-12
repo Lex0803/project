@@ -48,3 +48,13 @@ Df2022=read.csv2("2022_onderwijsniveau.csv")
 Df2023=read.csv2("2023_onderwijsniveau.csv")
 Combined_Df=rbind(Df2015, Df2016, Df2017, Df2018, Df2019, Df2020, Df2021,Df2022,Df2023)
 write.csv(Combined_Df,"Totaal_onderwijsniveau.csv", row.names = FALSE)
+
+Rename_Combined_Df <- Combined_Df %>% 
+  rename(
+    Basisonderwijs = Onderwijsniveau.5.categorieën.11.Basisonderwijs....,
+    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorieën.12.Vmbo..havo...vwo.onderbouw..mbo1....,
+    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorieën.21.Havo..vwo..mbo2.4....,
+    HBO_WO_Bachelor = Onderwijsniveau.5.categorieën.31.Hbo...wo.bachelor....,
+    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....
+  )
+
