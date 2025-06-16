@@ -86,4 +86,15 @@ Low_and_High_Education <- Rename_Combined_Df %>%
 Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)]
 
 Low_and_High_Education_Netherlands <- filter(Low_and_High_Education, Regio.s == "Nederland")
+Low_and_High_Education_Netherlands <- Low_and_High_Education_Netherlands[-c(9), ]
+Low_and_High_Education_Netherlands <- Low_and_High_Education_Netherlands %>% 
+  rename(
+    Jaar = Perioden
+  )
 
+df_yearly <- df_yearly[-c(9, 10, 11), ]
+
+Education_Employment <- df_yearly %>%
+  right_join(Low_and_High_Education_Netherlands, by = "Jaar") %>%
+  mutate(new_column = Nederland / High_Education_rate)
+  
