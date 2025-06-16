@@ -7,6 +7,8 @@ getwd()
 library(dplyr)
 library(readr)
 library(stringr)
+library(cbsodataR)
+library(sf)
 
 # 2. Load the dataset 
 df <- read.csv2("Werkloosheidpercentage.csv")
@@ -82,3 +84,6 @@ Low_and_High_Education <- Rename_Combined_Df %>%
       HBO_WO_Master_Doctor
   )
 Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)]
+
+Low_and_High_Education_Netherlands <- filter(Low_and_High_Education, Regio.s == "Nederland")
+
