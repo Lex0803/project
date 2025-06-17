@@ -125,6 +125,16 @@ df_yearly_transposed <- df_yearly_transposed %>%
   right_join(Low_and_High_Education_Provinces_2022, by = "Regio.s") %>%
   mutate(new_column = Unemployment / High_Education_rate)
 
+ratio_data <- df_yearly_transposed[, -c(1, 3, 4, 5)]
+
+
 Dutch_provinces <- ne_states(country = "Netherlands", returnclass = "sf") %>%
   filter(!name %in% c("St. Eustatius", "Saba"))
 
+map_data <- Dutch_provinces %>%
+  inner_join(ratio_data, by = c("name" = "Regio.s"))
+
+ggplot(map_data, aes(fill = new_column)) +
+  geom_sf(color = "white", size = 0.2) +
+  scale_fill_gradient(low = "blue", high = "red",
+                      name = "Werkloosheid per\nhoogopgeleide\nin 2022")
