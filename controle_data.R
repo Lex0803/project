@@ -100,13 +100,13 @@ Education_Employment <- df_yearly %>%
   right_join(Low_and_High_Education_Netherlands, by = "Jaar") %>%
   mutate(new_column = Nederland / High_Education_rate)
   
+
 Low_and_High_Education_Provinces_2022 <- filter(Low_and_High_Education, Jaar == "2022") %>%
   filter(grepl("\\(PV\\)", Regio.s))
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022 %>%
   mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
 Low_and_High_Education_Provinces_2022[2, "Regio.s"] <- "Friesland"
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022[, -c(1, 2, 5, 6)]
-
 
 
 df_yearly_transposed <- df_yearly %>%
@@ -124,6 +124,7 @@ df_yearly_transposed <- df_yearly_transposed %>%
 df_yearly_transposed <- df_yearly_transposed %>%
   right_join(Low_and_High_Education_Provinces_2022, by = "Regio.s") %>%
   mutate(new_column = Unemployment / High_Education_rate)
+
 
 ratio_data <- df_yearly_transposed[, -c(1, 3, 4, 5)]
 
