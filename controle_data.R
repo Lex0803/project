@@ -153,3 +153,8 @@ ggplot(map_data, aes(fill = new_column)) +
   scale_fill_gradient(low = "blue", high = "red",
                       name = "Werkloosheid per\nlaagopgeleide\nin 2022")
 
+Low_and_High_Education_Randstad <- filter(Low_and_High_Education, grepl("\\(PV\\)", Regio.s))
+Low_and_High_Education_Randstad <- Low_and_High_Education_Randstad %>%
+mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
+Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, Regio.s == "Noord-Holland" | Regio.s == "Zuid-Holland" | Regio.s == "Utrecht")
+Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, !Jaar == "2023*")
