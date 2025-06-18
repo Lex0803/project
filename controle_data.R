@@ -98,8 +98,13 @@ df_yearly <- df_yearly[-c(9, 10, 11), ]
 
 Education_Employment <- df_yearly %>%
   right_join(Low_and_High_Education_Netherlands, by = "Jaar") %>%
-  mutate(new_column = Nederland / High_Education_rate)
+  mutate(new_column = Nederland / Low_Education_rate,
+         Jaar = as.numeric(Jaar))
   
+ggplot(Education_Employment, aes(x = Jaar, y = new_column)) +
+  geom_line() +
+  labs(x = "\nYear", y = "Unemployment \nby Low Educated\n")+
+  scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
 
 Low_and_High_Education_Provinces_2022 <- filter(Low_and_High_Education, Jaar == "2022") %>%
   filter(grepl("\\(PV\\)", Regio.s))
