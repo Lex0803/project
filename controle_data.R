@@ -106,6 +106,14 @@ ggplot(Education_Employment, aes(x = Jaar, y = new_column)) +
   labs(x = "\nYear", y = "Unemployment \nby Low Educated\n")+
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
 
+ggplot(Education_Employment, aes(x = Jaar, y = new_column)) +
+  geom_line() +
+  geom_vline(xintercept = 2020, 
+             color = "red", 
+             linetype = "dashed") +
+  labs(x = "\nYear", y = "Unemployment \nby Low Educated\n")+
+  scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
+
 Low_and_High_Education_Provinces_2022 <- filter(Low_and_High_Education, Jaar == "2022") %>%
   filter(grepl("\\(PV\\)", Regio.s))
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022 %>%
