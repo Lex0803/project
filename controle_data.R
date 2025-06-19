@@ -62,25 +62,13 @@ Rename_Combined_Df <- Combined_Df %>%
     HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....
   )
 
-
-Rename_Combined_Df <- Combined_Df %>% 
-  rename(
-    Basisonderwijs = Onderwijsniveau.5.categorieën.11.Basisonderwijs....,
-    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorieën.12.Vmbo..havo...vwo.onderbouw..mbo1....,
-    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorieën.21.Havo..vwo..mbo2.4....,
-    HBO_WO_Bachelor = Onderwijsniveau.5.categorieën.31.Hbo...wo.bachelor....,
-    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....
-  )
-
-
-
 Low_and_High_Education <- Rename_Combined_Df %>%
   mutate(
     Low_Education_rate =
       Basisonderwijs +
-      VMBO_HAVO_VWO_Onderbouw_MBO_1,
+      VMBO_HAVO_VWO_Onderbouw_MBO_1 +
+      HAVO_VWO_MBO_2_4,
     High_Education_rate = 
-      HAVO_VWO_MBO_2_4 +
       HBO_WO_Bachelor +
       HBO_WO_Master_Doctor
   )
@@ -118,7 +106,7 @@ Low_and_High_Education_Provinces_2022 <- filter(Low_and_High_Education, Jaar == 
   filter(grepl("\\(PV\\)", Regio.s))
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022 %>%
   mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
-Low_and_High_Education_Provinces_2022[2, "Regio.s"] <- "Friesland"
+Low_and_High_Education_Provinces_2022$Regio.s <- ifelse(Low_and_High_Education_Provinces_2022$Regio.s == "Fryslân", "Friesland", Low_and_High_Education_Provinces_2022$Regio.s)
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022[, -c(1, 2, 5, 7)]
 
 
@@ -128,9 +116,9 @@ df_yearly_transposed <- df_yearly %>%
   )
 df_yearly_transposed <- filter(df_yearly_transposed, Jaar == "2022")
 df_yearly_transposed <- filter(df_yearly_transposed, !name == "Nederland")
-df_yearly_transposed[8, "name"] <- "Noord-Holland"
-df_yearly_transposed[9, "name"] <- "Zuid-Holland"
-df_yearly_transposed[11, "name"] <- "Noord-Brabant"
+df_yearly_transposed$name <- ifelse(df_yearly_transposed$name == "Noord.Holland", "Noord-Holland", df_yearly_transposed$name)
+df_yearly_transposed$name <- ifelse(df_yearly_transposed$name == "Zuid.Holland", "Zuid-Holland", df_yearly_transposed$name)
+df_yearly_transposed$name <- ifelse(df_yearly_transposed$name == "Noord.Brabant", "Noord-Brabant", df_yearly_transposed$name)
 df_yearly_transposed <- df_yearly_transposed %>%
   rename(Regio.s = name,
          Unemployment = value)
@@ -158,3 +146,58 @@ Low_and_High_Education_Randstad <- Low_and_High_Education_Randstad %>%
 mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
 Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, Regio.s == "Noord-Holland" | Regio.s == "Zuid-Holland" | Regio.s == "Utrecht")
 Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, !Jaar == "2023*")
+Low_and_High_Education_Randstad <- Low_and_High_Education_Randstad[, -c(1, 2, 5, 7)]
+
+df_yearly_transposed_Randstad<- df_yearly %>%
+  pivot_longer(
+    cols = -Jaar
+  )
+df_yearly_transposed_Randstad$name <- ifelse(df_yearly_transposed_Randstad$name == "Noord.Holland", "Noord-Holland", df_yearly_transposed_provinces$name)
+df_yearly_transposed_Randstad$name <- ifelse(df_yearly_transposed_Randstad$name == "Zuid.Holland", "Zuid-Holland", df_yearly_transposed_provinces$name)
+df_yearly_transposed_Randstad <- filter(df_yearly_transposed_Randstad, name == "Noord-Holland" | name == "Zuid-Holland" | name == "Utrecht")
+df_yearly_transposed_Randstad <- df_yearly_transposed_Randstad %>%
+  rename(Regio.s = name,
+         Unemployment = value)
+df_yearly_transposed_Randstad <- right_join(
+  df_yearly_transposed_Randstad,
+  Low_and_High_Education_Randstad,
+  by = c("Regio.s", "Jaar")
+)
+df_yearly_transposed_Randstad <- df_yearly_transposed_Randstad %>%
+  mutate(new_column = Unemployment / Low_Education_rate)
+
+mean_by_Randstad <- df_yearly_transposed_Randstad %>%
+  group_by(Regio.s) %>%           
+  summarise(
+    Mean_Value = mean(new_column) 
+  )
+
+Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education, grepl("\\(PV\\)", Regio.s))
+Low_and_High_Education_Noord_Nederland <- Low_and_High_Education_Noord_Nederland %>%
+  mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
+Low_and_High_Education_Noord_Nederland$Regio.s <- ifelse(Low_and_High_Education_Noord_Nederland$Regio.s == "Fryslân", "Friesland", Low_and_High_Education_Noord_Nederland$Regio.s)
+Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education_Noord_Nederland, Regio.s == "Groningen" | Regio.s == "Friesland" | Regio.s == "Drenthe")
+Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education_Noord_Nederland, !Jaar == "2023*")
+Low_and_High_Education_Noord_Nederland <- Low_and_High_Education_Noord_Nederland[, -c(1, 2, 5, 7)]
+
+df_yearly_transposed_Noord_Nederland <- df_yearly %>%
+  pivot_longer(
+    cols = -Jaar
+  )
+df_yearly_transposed_Noord_Nederland <- filter(df_yearly_transposed_Noord_Nederland, name == "Drenthe" | name == "Friesland" | name == "Groningen")
+df_yearly_transposed_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
+  rename(Regio.s = name,
+         Unemployment = value)
+df_yearly_transposed_Noord_Nederland <- right_join(
+  df_yearly_transposed_Noord_Nederland,
+  Low_and_High_Education_Noord_Nederland,
+  by = c("Regio.s", "Jaar")
+)
+df_yearly_transposed_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
+  mutate(new_column = Unemployment / Low_Education_rate)
+
+mean_by_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
+  group_by(Regio.s) %>%           
+  summarise(
+    Mean_Value = mean(new_column) 
+  )
