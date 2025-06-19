@@ -1,8 +1,3 @@
-
-
-
-getwd()
-
 # 1. Load required packages
 library(dplyr)
 library(readr)
@@ -86,15 +81,15 @@ df_yearly <- df_yearly[-c(9, 10, 11), ]
 
 Education_Employment <- df_yearly %>%
   right_join(Low_and_High_Education_Netherlands, by = "Jaar") %>%
-  mutate(new_column = Nederland / Low_Education_rate,
+  mutate(Unemployment_Low_Education = Nederland / Low_Education_rate,
          Jaar = as.numeric(Jaar))
   
-ggplot(Education_Employment, aes(x = Jaar, y = new_column)) +
+ggplot(Education_Employment, aes(x = Jaar, y = Unemployment_Low_Education)) +
   geom_line() +
   labs(x = "\nYear", y = "Unemployment \nby Low Educated\n")+
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
 
-ggplot(Education_Employment, aes(x = Jaar, y = new_column)) +
+ggplot(Education_Employment, aes(x = Jaar, y = Unemployment_Low_Education)) +
   geom_line() +
   geom_vline(xintercept = 2020, 
              color = "red", 
@@ -124,7 +119,7 @@ df_yearly_transposed <- df_yearly_transposed %>%
          Unemployment = value)
 df_yearly_transposed <- df_yearly_transposed %>%
   right_join(Low_and_High_Education_Provinces_2022, by = "Regio.s") %>%
-  mutate(new_column = Unemployment / Low_Education_rate)
+  mutate(Unemployment_Low_Education = Unemployment / Low_Education_rate)
 
 
 ratio_data <- df_yearly_transposed[, -c(1, 3, 4, 5)]
@@ -136,7 +131,7 @@ Dutch_provinces <- ne_states(country = "Netherlands", returnclass = "sf") %>%
 map_data <- Dutch_provinces %>%
   inner_join(ratio_data, by = c("name" = "Regio.s"))
 
-ggplot(map_data, aes(fill = new_column)) +
+ggplot(map_data, aes(fill = Unemployment_Low_Education)) +
   geom_sf(color = "white", size = 0.2) +
   scale_fill_gradient(low = "blue", high = "red",
                       name = "Werkloosheid per\nlaagopgeleide\nin 2022")
@@ -165,16 +160,19 @@ df_yearly_transposed_provinces <- right_join(
   by = c("Regio.s", "Jaar")
 )
 df_yearly_transposed_provinces <- df_yearly_transposed_provinces %>%
-  mutate(new_column = Unemployment / Low_Education_rate)
+  mutate(Unemployment_Low_Education = Unemployment / Low_Education_rate)
 
+#Added the mean for each province
 mean_by_provinces <- df_yearly_transposed_provinces %>%
   group_by(Regio.s) %>%           
   summarise(
-    Mean_Value = mean(new_column) 
+    Mean_Value = mean(Unemployment_Low_Education) 
   )
 
+#Added region groups next to the provinces belonging to the region group
 mean_by_provinces$Region_Group <- c(rep("Noord-Nederland", 3), rep("Randstad", 3))
 
+#Plotting the boxplot
 ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Value)) +
   geom_boxplot()+
   labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
