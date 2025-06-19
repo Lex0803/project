@@ -1,0 +1,72 @@
+---
+title: "project"
+author: Melle Kooge 2855016 
+        Lex Veerman 2821630 
+        Michael Minneboo 2858823 
+        Mateo van Gerven 2826991 
+        Merel Vonk 2862870 
+        Kirill Müller 2831153 
+        Athiraiyan Visvalingam 2801095
+
+output: pdf_document
+date: "2025-06-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Title Page
+
+#Part 1 - Identify a Social Problem The social problem we have chosen is that low-educated people are more often unemployed than high-educated people. In this report we will only focus on statistics in the Netherlands.
+
+##1.1 Motivation The inequality between lower and higher educated people is a continuing challenge in the labor market. According to CBS (Centraal Bureau voor de Statistiek, a surveyor of economic data from mainly the Netherlands), lower educated people are more frequently unemployed than higher educated peers. This will cause a broadening gap between lower and higher educated employees, impacting both their opportunities in the labor market and their financial stability. This research is aimed to store our findings in R to give a general overview of the social problem.
+
+#Part 2 - Data Sourcing
+
+##2.1 Load in the Data
+
+```{r loading_data, include=FALSE}
+dataset_1 <- Df2015
+url ("https://opendata.cbs.nl/#/CBS/nl/dataset/85525NED/table")
+dataset_2 <- df_yearly
+url ("https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/werkloosheid-per-provincie")
+```
+
+##2.2 Summary of the data
+
+```{r data_summary}
+head(dataset_1)
+#In this data set the different level of education has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the total inhabitants per region.
+
+head(dataset_2)
+#In this dataset the unemployment has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the working population. Currently the data is measured per quarter of a year. We need to have an average from each year to have it corresponds with our other dataset. The years that have been measured also differs with the other dataset, so we only use the years that both datasets inlcude.
+```
+
+##2.3 Describe the variables included
+
+```{r}
+head(dataset_1)
+#The variables we have in this data set are: 
+  ##level of education:the different levels of education people have in the Netherlands 
+  ##region: the twelve provinces in the Netherlands
+  ##year: the years go through 2013 to 2023
+head(dataset_2)
+#The variables we have in this data set are:
+  ##level of unemployment: the percentage of people that are unemployed from the working population
+  ##region: the twelve provinces in the Netherlands
+  ##quarter per year: the years go through the first quarter of 2015 to the first quarter of 2025
+
+```
+
+#Part 3 Quantifying
+
+##3.1 Data cleaning
+
+```{r}
+
+```
+
+#we created the file where we can see the total unemployment per year clearly with columns. firstly we renamed the first column to Kwartaal. Then we extracted the years from the data set, so we can group by year. Previously the data was group per quarter per year, so to get a yearly average we calculated the mean from each year per region. To calculate the mean we first converted the necessary numbers to numeric and changed the commas with dots.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
