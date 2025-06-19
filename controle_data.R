@@ -141,63 +141,40 @@ ggplot(map_data, aes(fill = new_column)) +
   scale_fill_gradient(low = "blue", high = "red",
                       name = "Werkloosheid per\nlaagopgeleide\nin 2022")
 
-Low_and_High_Education_Randstad <- filter(Low_and_High_Education, grepl("\\(PV\\)", Regio.s))
-Low_and_High_Education_Randstad <- Low_and_High_Education_Randstad %>%
+Low_and_High_Education_provinces <- filter(Low_and_High_Education, grepl("\\(PV\\)", Regio.s))
+Low_and_High_Education_provinces <- Low_and_High_Education_provinces %>%
 mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
-Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, Regio.s == "Noord-Holland" | Regio.s == "Zuid-Holland" | Regio.s == "Utrecht")
-Low_and_High_Education_Randstad <- filter(Low_and_High_Education_Randstad, !Jaar == "2023*")
-Low_and_High_Education_Randstad <- Low_and_High_Education_Randstad[, -c(1, 2, 5, 7)]
+Low_and_High_Education_provinces$Regio.s <- ifelse(Low_and_High_Education_provinces$Regio.s == "Fryslân", "Friesland", Low_and_High_Education_provinces$Regio.s)
+Low_and_High_Education_provinces <- filter(Low_and_High_Education_provinces, Regio.s == "Noord-Holland" | Regio.s == "Zuid-Holland" | Regio.s == "Utrecht" | Regio.s == "Friesland" | Regio.s == "Drenthe" | Regio.s == "Groningen")
+Low_and_High_Education_provinces <- filter(Low_and_High_Education_provinces, !Jaar == "2023*")
+Low_and_High_Education_provinces <- Low_and_High_Education_provinces[, -c(1, 2, 5, 7)]
 
-df_yearly_transposed_Randstad<- df_yearly %>%
+df_yearly_transposed_provinces<- df_yearly %>%
   pivot_longer(
     cols = -Jaar
   )
-df_yearly_transposed_Randstad$name <- ifelse(df_yearly_transposed_Randstad$name == "Noord.Holland", "Noord-Holland", df_yearly_transposed_provinces$name)
-df_yearly_transposed_Randstad$name <- ifelse(df_yearly_transposed_Randstad$name == "Zuid.Holland", "Zuid-Holland", df_yearly_transposed_provinces$name)
-df_yearly_transposed_Randstad <- filter(df_yearly_transposed_Randstad, name == "Noord-Holland" | name == "Zuid-Holland" | name == "Utrecht")
-df_yearly_transposed_Randstad <- df_yearly_transposed_Randstad %>%
+df_yearly_transposed_provinces$name <- ifelse(df_yearly_transposed_provinces$name == "Noord.Holland", "Noord-Holland", df_yearly_transposed_provinces$name)
+df_yearly_transposed_provinces$name <- ifelse(df_yearly_transposed_provinces$name == "Zuid.Holland", "Zuid-Holland", df_yearly_transposed_provinces$name)
+df_yearly_transposed_provinces <- filter(df_yearly_transposed_provinces, name == "Noord-Holland" | name == "Zuid-Holland" | name == "Utrecht" | name == "Drenthe" | name == "Groningen" | name =="Friesland")
+df_yearly_transposed_provinces <- df_yearly_transposed_provinces %>%
   rename(Regio.s = name,
          Unemployment = value)
-df_yearly_transposed_Randstad <- right_join(
-  df_yearly_transposed_Randstad,
-  Low_and_High_Education_Randstad,
+df_yearly_transposed_provinces <- right_join(
+  df_yearly_transposed_provinces,
+  Low_and_High_Education_provinces,
   by = c("Regio.s", "Jaar")
 )
-df_yearly_transposed_Randstad <- df_yearly_transposed_Randstad %>%
+df_yearly_transposed_provinces <- df_yearly_transposed_provinces %>%
   mutate(new_column = Unemployment / Low_Education_rate)
 
-mean_by_Randstad <- df_yearly_transposed_Randstad %>%
+mean_by_provinces <- df_yearly_transposed_provinces %>%
   group_by(Regio.s) %>%           
   summarise(
     Mean_Value = mean(new_column) 
   )
 
-Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education, grepl("\\(PV\\)", Regio.s))
-Low_and_High_Education_Noord_Nederland <- Low_and_High_Education_Noord_Nederland %>%
-  mutate(Regio.s = gsub(" \\(PV\\)", "", Regio.s))
-Low_and_High_Education_Noord_Nederland$Regio.s <- ifelse(Low_and_High_Education_Noord_Nederland$Regio.s == "Fryslân", "Friesland", Low_and_High_Education_Noord_Nederland$Regio.s)
-Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education_Noord_Nederland, Regio.s == "Groningen" | Regio.s == "Friesland" | Regio.s == "Drenthe")
-Low_and_High_Education_Noord_Nederland <- filter(Low_and_High_Education_Noord_Nederland, !Jaar == "2023*")
-Low_and_High_Education_Noord_Nederland <- Low_and_High_Education_Noord_Nederland[, -c(1, 2, 5, 7)]
+mean_by_provinces$Region_Group <- c(rep("Noord-Nederland", 3), rep("Randstad", 3))
 
-df_yearly_transposed_Noord_Nederland <- df_yearly %>%
-  pivot_longer(
-    cols = -Jaar
-  )
-df_yearly_transposed_Noord_Nederland <- filter(df_yearly_transposed_Noord_Nederland, name == "Drenthe" | name == "Friesland" | name == "Groningen")
-df_yearly_transposed_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
-  rename(Regio.s = name,
-         Unemployment = value)
-df_yearly_transposed_Noord_Nederland <- right_join(
-  df_yearly_transposed_Noord_Nederland,
-  Low_and_High_Education_Noord_Nederland,
-  by = c("Regio.s", "Jaar")
-)
-df_yearly_transposed_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
-  mutate(new_column = Unemployment / Low_Education_rate)
-
-mean_by_Noord_Nederland <- df_yearly_transposed_Noord_Nederland %>%
-  group_by(Regio.s) %>%           
-  summarise(
-    Mean_Value = mean(new_column) 
-  )
+ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Value)) +
+  geom_boxplot()+
+  labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
