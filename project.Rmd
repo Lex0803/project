@@ -88,13 +88,13 @@ write.csv(Unemployment_yearly, "Unemployment_by_year.csv", row.names = FALSE)
 
 ```
 
-#The file is created where the total unemployment per year with columns is clear. Firstly the first column was renamed to Quarter. Then the years from the data set were extracted, so they could be grouped by year. Previously the data was grouped per quarter per year, so to get a yearly average the mean from each year per region was calculated. To calculate the mean, the necessary numbers were converted to numeric.
+The file is created where the total unemployment per year with columns is clear. Firstly the first column was renamed to Quarter. Then the years from the data set were extracted, so they could be grouped by year. Previously the data was grouped per quarter per year, so to get a yearly average the mean from each year per region was calculated. To calculate the mean, the necessary numbers were converted to numeric.
 
 ```{r}
 Unemployment_yearly <- Unemployment_yearly[-c(9, 10, 11), ]
 ```
 
-#The rows for the years 2023, 2024 and 2025 were removed, as these years were not used to make the necessary computations.
+The rows for the years 2023, 2024 and 2025 were removed, as these years were not used to make the necessary computations.
 
 ```{r}
 #Load in the education level by year datasets
@@ -111,7 +111,7 @@ Educationlevel_by_year=rbind(Educationlevel2015, Educationlevel2016, Educationle
 write.csv(Educationlevel_by_year,"Total_educationlevel.csv", row.names = FALSE) 
 ```
 
-#The table with education levels were sorted by year. So, the tables were downloaded by year and then bounded.
+The table with education levels were sorted by year. So, the tables were downloaded by year and then bounded.
 
 ```{r}
 #Renamed all the column names to an easier accessible name or to an English word
@@ -130,15 +130,13 @@ Educationlevel_by_year <- Educationlevel_by_year %>%
   )
 ```
 
-#The column names in the dataset for the education level by year were simplified and changed to English, to make improve the readability of the dataset.
+The column names in the dataset for the education level by year were simplified and changed to English, to make improve the readability of the dataset.
 
 ```{r}
 Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)] 
 ```
 
-#Some columns were also deleted to improve the readability. This piece of code was not the only instance when this was used.
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Some columns were also deleted to improve the readability. This piece of code was not the only instance when this was used.
 
 ##3.2 Generate necessary variables
 
@@ -155,7 +153,7 @@ Low_and_High_Education <- Educationlevel_by_year %>%
   ) 
 ```
 
-#The used datasets divided the education level in 5 different parts. To make the computations easier two variables were created, dividing these 5 parts into low education and high education. This was done by adding the percentages in the different parts. Now there were only two variables to use in the computations.
+The used datasets divided the education level in 5 different parts. To make the computations easier two variables were created, dividing these 5 parts into low education and high education. This was done by adding the percentages in the different parts. Now there were only two variables to use in the computations.
 
 ```{r}
 #Added the Unemployment_by_Low_Education column
@@ -163,20 +161,52 @@ Education_Unemployment_yearly_transposed_provinces <- Education_Unemployment_yea
   mutate(Unemployment_by_Low_Education = Unemployment / Low_Education_rate) 
 ```
 
-#The third variable was created by dividing the unemployment by low education rate. This was done to realise a variable to find a connection between the unemployment and the low education rate in each province. By using unemployment and the low education rate, intuitively there should be a high unemployment by low education rate in provinces with a low education rate, and it should be low in provinces with a high education rate. 
+The third variable was created by dividing the unemployment by low education rate. This was done to realise a variable to find a connection between the unemployment and the low education rate in each province. By using unemployment and the low education rate, intuitively there should be a high unemployment by low education rate in provinces with a low education rate, and it should be low in provinces with a high education rate. 
 
 ##3.3 Visualize temporal variation
 
 ```{r}
-plot(, pch = 18) 
+ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
+  geom_line() + 
+  labs(x = "\nYear", y = "Unemployment \nper Low Educated\n")+ 
+  scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022)) 
+```
+
+##3.4 Visualize spatial variation
+
+```{r}
+ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) + 
+  geom_sf(color = "white", size = 0.2) + 
+  scale_fill_gradient(low = "blue", high = "red", 
+                      name = "Unemployed per\nLow Educated\nin 2022") 
+```
+
+##3.5 Visualize sub-population variation
+
+```{r}
+ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Unemployment_by_Low_Education)) + 
+  geom_boxplot() + 
+  labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
+```
+
+##3.6 Event analysis
+
+```{r}
+ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
+  geom_line() + 
+  geom_vline(xintercept = 2020,  
+             color = "red",  
+             linetype = "dashed") + 
+  labs(x = "\nYear", y = "Unemployment \nper Low Educated\n")+ 
+  scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
 ```
 
 
 #Part 4 Discussion
 
-#At the start of our research, we hypothesized that there would be a clear correlation between education level and unemployment rates within the Netherlands. Specifically, we expected that regions with a lower average education level would have higher unemployment, while regions with a higher education level would experience lower unemployment. This expectation was based on the general assumption that higher education provides individuals with better job opportunities and employability.
-#However, after processing the datasets and visualizing the results in graphs, our findings challenged this expectation. For example, the province of Zeeland had the highest proportion of low-educated individuals, yet it also had the lowest unemployment rate of all provinces. This was a surprising outcome that did not align with our initial hypothesis.
-#Another notable finding was the contrast between the Randstad region and the northern provinces of the Netherlands. Despite the Randstad being more urbanized and economically developed, the unemployment rate among low-educated individuals was higher in the Randstad than in the northern provinces. This was unexpected, as we initially assumed that urban areas with more diverse economies would offer more opportunities, even for those with lower levels of education.
+At the start of our research, we hypothesized that there would be a clear correlation between education level and unemployment rates within the Netherlands. Specifically, we expected that regions with a lower average education level would have higher unemployment, while regions with a higher education level would experience lower unemployment. This expectation was based on the general assumption that higher education provides individuals with better job opportunities and employability.
+However, after processing the datasets and visualizing the results in graphs, our findings challenged this expectation. For example, the province of Zeeland had the highest proportion of low-educated individuals, yet it also had the lowest unemployment rate of all provinces. This was a surprising outcome that did not align with our initial hypothesis.
+Another notable finding was the contrast between the Randstad region and the northern provinces of the Netherlands. Despite the Randstad being more urbanized and economically developed, the unemployment rate among low-educated individuals was higher in the Randstad than in the northern provinces. This was unexpected, as we initially assumed that urban areas with more diverse economies would offer more opportunities, even for those with lower levels of education.
 
 
 
@@ -186,7 +216,7 @@ plot(, pch = 18)
 https://github.com/Lex0803/project.git 
 
 ##5.2 Reference List
-#CBS Statline. (z.d.). https://opendata.cbs.nl/#/CBS/nl/dataset/85525NED/table
+CBS Statline. (z.d.). https://opendata.cbs.nl/#/CBS/nl/dataset/85525NED/table
 
-#Centraal Bureau voor de Statistiek. (z.d.). Werkloosheid per provincie. Centraal Bureau Voor de Statistiek. https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/werkloosheid-per-provincie 
+Centraal Bureau voor de Statistiek. (z.d.). Werkloosheid per provincie. Centraal Bureau Voor de Statistiek. https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/werkloosheid-per-provincie 
 
