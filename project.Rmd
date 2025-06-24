@@ -1,16 +1,16 @@
 ---
 title: "Unemployment and Level of Education"
-author: |
-  Melle Kooge 2855016
-  Lex Veerman 2821630
-  Michael Minneboo 2858823
-  Mateo van Gerven 2826991
-  Merel Vonk 2862870
-  Kirill Müller 2831153
-  Athiraiyan Visvalingam 2801095
+author:
+  - Melle Kooge 2855016
+  - Lex Veerman 2821630
+  - Michael Minneboo 2858823
+  - Mateo van Gerven 2826991
+  - Merel Vonk 2862870
+  - Kirill Müller 2831153
+  - Athiraiyan Visvalingam 2801095
 
 output: pdf_document
-date: "2025-06-16"
+date: "24 June 2025"
 ---
 
 ```{r setup, include=FALSE}
@@ -19,8 +19,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load_data}
 source("controle_data.R") 
 ```
-
-# Title Page
 
 # Part 1
 Identify a Social Problem The social problem we have chosen is that low-educated people are more often unemployed than high-educated people. In this report we will only focus on statistics in the Netherlands.
@@ -43,27 +41,33 @@ url ("https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/we
 
 ```{r data_summary}
 head(dataset_1)
-#In this data set the different level of education has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the total inhabitants per region.
-
-head(dataset_2)
-#In this dataset the unemployment has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the working population. Currently the data is measured per quarter of a year. We need to have an average from each year to have it corresponds with our other dataset. The years that have been measured also differs with the other dataset, so we only use the years that both datasets inlcude.
 ```
+
+In this data set the different level of education has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the total inhabitants per region.
+
+```{r}
+head(dataset_2)
+```
+
+In this dataset the unemployment has been measured per Region (provinces) per year in the Netherlands. It is a percentage based on the working population. Currently the data is measured per quarter of a year. We need to have an average from each year to have it corresponds with our other dataset. The years that have been measured also differs with the other dataset, so we only use the years that both datasets inlcude.
 
 ## 2.3 Describe the variables included
 
 ```{r}
 head(dataset_1)
-#The variables we have in this data set are: 
-  ##level of education:the different levels of education people have in the Netherlands 
-  ##region: the twelve provinces in the Netherlands
-  ##year: the years go through 2013 to 2023
-head(dataset_2)
-#The variables we have in this data set are:
-  ##level of unemployment: the percentage of people that are unemployed from the working population
-  ##region: the twelve provinces in the Netherlands
-  ##quarter per year: the years go through the first quarter of 2015 to the first quarter of 2025
-
 ```
+
+The variables we have in this data set are level of education, this the different levels of education people have in the Netherlands. Secondly the region, these are the twelve provinces in the Netherlands. Lastly there is the years, these are the years from 2013 to 2023.
+ 
+```{r}
+head(dataset_2)
+```
+ 
+  
+The variables we have in this data set are:
+  - level of unemployment: the percentage of people that are unemployed from the working population
+  - region: the twelve provinces in the Netherlands
+  - quarter per year: the years go through the first quarter of 2015 to the first quarter of 2025
 
 #Part 3 Quantifying
 
@@ -88,10 +92,6 @@ Unemployment[numeric_cols] <- lapply(Unemployment[numeric_cols], function(x) {
 Unemployment_yearly <- Unemployment %>% 
   group_by(Year) %>% 
   summarise(across(all_of(numeric_cols), ~round(mean(.x, na.rm = TRUE), 2))) 
-
-#Optional: Export to CSV 
-write.csv(Unemployment_yearly, "Unemployment_by_year.csv", row.names = FALSE)
-
 ```
 
 The file is created where the total unemployment per year with columns is clear. Firstly the first column was renamed to Quarter. Then the years from the data set were extracted, so they could be grouped by year. Previously the data was grouped per quarter per year, so to get a yearly average the mean from each year per region was calculated. To calculate the mean, the necessary numbers were converted to numeric.
@@ -104,17 +104,18 @@ The rows for the years 2023, 2024 and 2025 were removed, as these years were not
 
 ```{r}
 #Load in the education level by year datasets
-Educationlevel2015=read.csv2("2015_onderwijsniveau.csv") 
-Educationlevel2016=read.csv2("2016_onderwijsniveau.csv") 
-Educationlevel2017=read.csv2("2017_onderwijsniveau.csv") 
-Educationlevel2018=read.csv2("2018_onderwijsniveau.csv") 
-Educationlevel2019=read.csv2("2019_onderwijsniveau.csv") 
-Educationlevel2020=read.csv2("2020_onderwijsniveau.csv") 
-Educationlevel2021=read.csv2("2021_onderwijsniveau.csv") 
-Educationlevel2022=read.csv2("2022_onderwijsniveau.csv") 
-Educationlevel2023=read.csv2("2023_onderwijsniveau.csv") 
-Educationlevel_by_year=rbind(Educationlevel2015, Educationlevel2016, Educationlevel2017, Educationlevel2018, Educationlevel2019, Educationlevel2020, Educationlevel2021,Educationlevel2022,Educationlevel2023) 
-write.csv(Educationlevel_by_year,"Total_educationlevel.csv", row.names = FALSE) 
+Educationlevel2015=read.csv2("2015_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2016=read.csv2("2016_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2017=read.csv2("2017_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2018=read.csv2("2018_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2019=read.csv2("2019_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2020=read.csv2("2020_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2021=read.csv2("2021_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2022=read.csv2("2022_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2023=read.csv2("2023_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel_by_year=rbind(Educationlevel2015, Educationlevel2016, Educationlevel2017,
+                             Educationlevel2018, Educationlevel2019, Educationlevel2020,
+                             Educationlevel2021,Educationlevel2022,Educationlevel2023) 
 ```
 
 The table with education levels were sorted by year. So, the tables were downloaded by year and then bounded.
@@ -123,11 +124,12 @@ The table with education levels were sorted by year. So, the tables were downloa
 #Renamed all the column names to an easier accessible name or to an English word
 Educationlevel_by_year <- Educationlevel_by_year %>%  
   rename( 
-    Basisonderwijs = Onderwijsniveau.5.categorieën.11.Basisonderwijs...., 
-    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorieën.12.Vmbo..havo...vwo.onderbouw..mbo1...., 
-    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorieën.21.Havo..vwo..mbo2.4...., 
-    HBO_WO_Bachelor = Onderwijsniveau.5.categorieën.31.Hbo...wo.bachelor...., 
-    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....,
+    Basisonderwijs = Onderwijsniveau.5.categorien.11.Basisonderwijs...., 
+    VMBO_HAVO_VWO_Onderbouw_MBO_1 = 
+      Onderwijsniveau.5.categorien.12.Vmbo..havo...vwo.onderbouw..mbo1...., 
+    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorien.21.Havo..vwo..mbo2.4...., 
+    HBO_WO_Bachelor = Onderwijsniveau.5.categorien.31.Hbo...wo.bachelor...., 
+    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorien.32.Hbo...wo.master..doctor....,
     Gender = Geslacht,
     Age = Leeftijd,
     Year = Perioden,
@@ -143,6 +145,21 @@ Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)]
 ```
 
 Some columns were also deleted to improve the readability. This piece of code was not the only instance when this was used.
+
+```{r}
+Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022 %>% 
+  mutate(Region = gsub(" \\(PV\\)", "", Region)) 
+```
+
+Within the province, the letters (PV) were written behind the name of the province, so these were removed.
+
+```{r}
+Low_and_High_Education_provinces$Region <- ifelse(Low_and_High_Education_provinces$Region
+                                                  == "Fryslan", "Friesland", 
+                                                  Low_and_High_Education_provinces$Region) 
+``` 
+
+The province Friesland, was as Fryslan in one dataset, so this name was changed into Friesland.
 
 ## 3.2 Generate necessary variables
 
@@ -163,20 +180,15 @@ The used datasets divided the education level in 5 different parts. To make the 
 
 ```{r}
 #Added the Unemployment_by_Low_Education column
-Education_Unemployment_yearly_transposed_provinces <- Education_Unemployment_yearly_transposed_provinces %>% 
+Education_Unemployment_yearly_transposed_provinces <-
+  Education_Unemployment_yearly_transposed_provinces %>% 
   mutate(Unemployment_by_Low_Education = Unemployment / Low_Education_rate) 
 ```
 
 The third variable was created by dividing the unemployment by low education rate. This was done to realise a variable to find a connection between the unemployment and the low education rate in each province. By using unemployment and the low education rate, intuitively there should be a high unemployment by low education rate in provinces with a low education rate, and it should be low in provinces with a high education rate. 
 
-<<<<<<< HEAD
-## 3.3 Visualize temporal variation
-
-=======
 ##3.3 Visualize temporal variation
-#This line graph shows the national trend in unemployment rates among low-educated individuals in the Netherlands from 2015 to 2022.
-# It is relevant for emphasizing the overall long-term progress, while showing that low-educated people still face employment instability.
->>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
+
 ```{r}
 ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
   geom_line() + 
@@ -184,14 +196,11 @@ ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) +
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022)) 
 ```
 
-<<<<<<< HEAD
-## 3.4 Visualize spatial variation
+This line graph shows the national trend in unemployment rates per low-educated individuals in the Netherlands from 2015 to 2022.
+It is relevant for emphasizing the overall long-term progress, while showing that low-educated people still face employment instability.
 
-=======
 ##3.4 Visualize spatial variation
-#This choropleth map shows the regional distribution of unemployment rates among low-educated individuals in 2022 across Dutch provinces. The color gradient from blue to red indicates lower to higher unemployment. 
-#This plot is key in showing that regional differences play a major role in unemployment outcomes. Despite having the highest share of low-educated residents, Zeeland has the lowest unemployment, contradicting the expectation that low education automatically leads to higher unemployment. 
->>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
+
 ```{r}
 ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) + 
   geom_sf(color = "white", size = 0.2) + 
@@ -199,28 +208,24 @@ ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) +
                       name = "Unemployed per\nLow Educated\nin 2022") 
 ```
 
-<<<<<<< HEAD
+This choropleth map shows the regional distribution of unemployment rates per low-educated individuals in 2022 across Dutch provinces. The color gradient from blue to red indicates lower to higher unemployment by low-educated. 
+This plot is key in showing that regional differences play a major role in unemployment outcomes. Despite having the highest share of low-educated residents, Zeeland has the lowest unemployment, contradicting the expectation that a higher rate of low-educated people automatically leads to higher unemployment. 
+
 ## 3.5 Visualize sub-population variation
 
-=======
-##3.5 Visualize sub-population variation
-#This boxplot compares the distribution of unemployment rates among low-educated individuals in two regions of the Netherlands: the Randstad and the Northern Netherlands 
-#This plot is especially relevant to our research question because it directly visualizes regional differences in unemployment for low-educated individuals.
->>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
-ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Unemployment_by_Low_Education)) + 
+ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, 
+                                               y = Mean_Unemployment_by_Low_Education)) + 
   geom_boxplot() + 
-  labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
+  labs(x = "\nRegion", y = "Unemployment per \nLow Educated\n")
 ```
 
-<<<<<<< HEAD
+This boxplot compares the distribution of unemployment rates per low-educated individuals in two regions of the Netherlands: the Randstad and the Northern Netherlands 
+This plot is especially relevant to our research question because it directly visualizes regional differences in unemployment per low-educated individuals.
+
+
 ## 3.6 Event analysis
 
-=======
-##3.6 Event analysis
-#This line graph shows the national trend in unemployment rates among low-educated individuals in the Netherlands from 2015 to 2022. The vertical red line at 2020 marks the start of the COVID-19 pandemic.
-#This plot is important because it illustrates that unemployment among low-educated individuals was steadily decreasing from 2015 to 2019. However, there is a slight increase in 2020, likely due to the pandemic, after which the rate continues to decline. This supports the argument that while unemployment is generally improving, low-educated individuals remain vulnerable during economic shocks.
->>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
 ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
   geom_line() + 
@@ -231,6 +236,8 @@ ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) +
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022))
 ```
 
+This line graph shows the national trend in unemployment rates per the low-educated individuals in the Netherlands from 2015 to 2022. The vertical red line at 2020 marks the start of the COVID-19 pandemic.
+This plot is important because it illustrates that unemployment among low-educated individuals was steadily decreasing from 2015 to 2019. However, there is a slight increase in 2020, likely due to the pandemic, after which the rate continues to decline. The main reason for this sudden shift is that unemployment suddenly rose during the pandemic.
 
 # Part 4 Discussion
 
