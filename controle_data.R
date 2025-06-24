@@ -27,30 +27,26 @@ Unemployment_yearly <- Unemployment %>%
   group_by(Year) %>% 
   summarise(across(all_of(numeric_cols), ~round(mean(.x, na.rm = TRUE), 2))) 
 
-#Optional: Export to CSV 
-write.csv(Unemployment_yearly, "Unemployment_by_year.csv", row.names = FALSE) 
-
 #Load in the education level by year datasets
-Educationlevel2015=read.csv2("2015_onderwijsniveau.csv") 
-Educationlevel2016=read.csv2("2016_onderwijsniveau.csv") 
-Educationlevel2017=read.csv2("2017_onderwijsniveau.csv") 
-Educationlevel2018=read.csv2("2018_onderwijsniveau.csv") 
-Educationlevel2019=read.csv2("2019_onderwijsniveau.csv") 
-Educationlevel2020=read.csv2("2020_onderwijsniveau.csv") 
-Educationlevel2021=read.csv2("2021_onderwijsniveau.csv") 
-Educationlevel2022=read.csv2("2022_onderwijsniveau.csv") 
-Educationlevel2023=read.csv2("2023_onderwijsniveau.csv") 
+Educationlevel2015=read.csv2("2015_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2016=read.csv2("2016_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2017=read.csv2("2017_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2018=read.csv2("2018_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2019=read.csv2("2019_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2020=read.csv2("2020_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2021=read.csv2("2021_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2022=read.csv2("2022_onderwijsniveau.csv", fileEncoding = "UTF-8") 
+Educationlevel2023=read.csv2("2023_onderwijsniveau.csv", fileEncoding = "UTF-8") 
 Educationlevel_by_year=rbind(Educationlevel2015, Educationlevel2016, Educationlevel2017, Educationlevel2018, Educationlevel2019, Educationlevel2020, Educationlevel2021,Educationlevel2022,Educationlevel2023) 
-write.csv(Educationlevel_by_year,"Total_educationlevel.csv", row.names = FALSE) 
 
 #Renamed all the column names to an easier accessible name or to an English word
 Educationlevel_by_year <- Educationlevel_by_year %>%  
   rename( 
-    Basisonderwijs = Onderwijsniveau.5.categorieën.11.Basisonderwijs...., 
-    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorieën.12.Vmbo..havo...vwo.onderbouw..mbo1...., 
-    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorieën.21.Havo..vwo..mbo2.4...., 
-    HBO_WO_Bachelor = Onderwijsniveau.5.categorieën.31.Hbo...wo.bachelor...., 
-    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....,
+    Basisonderwijs = Onderwijsniveau.5.categorien.11.Basisonderwijs...., 
+    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorien.12.Vmbo..havo...vwo.onderbouw..mbo1...., 
+    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorien.21.Havo..vwo..mbo2.4...., 
+    HBO_WO_Bachelor = Onderwijsniveau.5.categorien.31.Hbo...wo.bachelor...., 
+    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorien.32.Hbo...wo.master..doctor....,
     Gender = Geslacht,
     Age = Leeftijd,
     Year = Perioden,
@@ -103,12 +99,12 @@ ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) +
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022)) 
 
 #Filtered the provinces by the year 2022, and removed the (PV) after the provinces in the cells
-#Also changed Fryslân into Friesland and removed columns for readability
+#Also changed Fryslan into Friesland and removed columns for readability
 Low_and_High_Education_Provinces_2022 <- filter(Low_and_High_Education, Year == "2022") %>% 
   filter(grepl("\\(PV\\)", Region)) 
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022 %>% 
   mutate(Region = gsub(" \\(PV\\)", "", Region)) 
-Low_and_High_Education_Provinces_2022$Region <- ifelse(Low_and_High_Education_Provinces_2022$Region == "Fryslân", "Friesland", Low_and_High_Education_Provinces_2022$Region) 
+Low_and_High_Education_Provinces_2022$Region <- ifelse(Low_and_High_Education_Provinces_2022$Region == "Fryslan", "Friesland", Low_and_High_Education_Provinces_2022$Region) 
 Low_and_High_Education_Provinces_2022 <- Low_and_High_Education_Provinces_2022[, -c(1, 2, 5, 7)] 
 
 #Transposed the dataset Unemployment_yearly to merge with Low_and_High_Education_Provinces_2022
@@ -150,7 +146,7 @@ ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) +
 Low_and_High_Education_provinces <- filter(Low_and_High_Education, grepl("\\(PV\\)", Region)) 
 Low_and_High_Education_provinces <- Low_and_High_Education_provinces %>% 
   mutate(Region = gsub(" \\(PV\\)", "", Region)) 
-Low_and_High_Education_provinces$Region <- ifelse(Low_and_High_Education_provinces$Region == "Fryslân", "Friesland", Low_and_High_Education_provinces$Region) 
+Low_and_High_Education_provinces$Region <- ifelse(Low_and_High_Education_provinces$Region == "Fryslan", "Friesland", Low_and_High_Education_provinces$Region) 
 Low_and_High_Education_provinces <- filter(Low_and_High_Education_provinces, Region == "Noord-Holland" | Region == "Zuid-Holland" | Region == "Utrecht" | Region == "Friesland" | Region == "Drenthe" | Region == "Groningen") 
 Low_and_High_Education_provinces <- filter(Low_and_High_Education_provinces, !Year == "2023*") 
 Low_and_High_Education_provinces <- Low_and_High_Education_provinces[, -c(1, 2, 5, 7)] 

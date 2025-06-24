@@ -1,18 +1,18 @@
-﻿"Geslacht";"Leeftijd";"Perioden";"Regio's";"Bevolking (aantal)";"Onderwijsniveau 5 categorieën/11 Basisonderwijs (%)";"Onderwijsniveau 5 categorieën/12 Vmbo, havo-, vwo-onderbouw, mbo1 (%)";"Onderwijsniveau 5 categorieën/21 Havo, vwo, mbo2-4 (%)";"Onderwijsniveau 5 categorieën/31 Hbo-, wo-bachelor (%)";"Onderwijsniveau 5 categorieën/32 Hbo-, wo-master, doctor (%)"
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Nederland";13115700;9,4;19,5;41,5;19;10,6
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Noord-Nederland (LD)";1307700;8,7;20,1;45,8;17,9;7,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Oost-Nederland (LD)";2748400;9,2;20,4;43,5;18,5;8,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"West-Nederland (LD)";6263400;9,5;18,4;39,4;19,5;13,1
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Zuid-Nederland (LD)";2796200;9,8;20,7;42;18,8;8,7
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Groningen (PV)";454200;8,5;17,9;44,9;18,7;10
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Fryslân (PV)";485500;8,7;21,3;46,3;17,9;5,7
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Drenthe (PV)";368000;9,1;21,1;46,2;17,1;6,6
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Overijssel (PV)";865800;9;20,2;44,7;18,6;7,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Flevoland (PV)";316400;9,5;20,6;45,9;17,3;6,6
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Gelderland (PV)";1566200;9,2;20,5;42,4;18,6;9,3
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Utrecht (PV)";985900;8;16,7;36,9;21,6;16,7
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Noord-Holland (PV)";2186100;9;17,4;38,1;20,5;15
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Zuid-Holland (PV)";2806000;10,5;19,4;40,6;18,3;11,2
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Zeeland (PV)";285400;8,3;23,1;46,7;16,4;5,5
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Noord-Brabant (PV)";1937800;9,4;20,5;41,8;19,2;9,1
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2018";"Limburg (PV)";858300;10,7;21,2;42,6;17,7;7,8
+﻿Geslacht;Leeftijd;Perioden;Regio's;Bevolking (aantal);Onderwijsniveau 5 categorien/11 Basisonderwijs (%);Onderwijsniveau 5 categorien/12 Vmbo, havo-, vwo-onderbouw, mbo1 (%);Onderwijsniveau 5 categorien/21 Havo, vwo, mbo2-4 (%);Onderwijsniveau 5 categorien/31 Hbo-, wo-bachelor (%);Onderwijsniveau 5 categorien/32 Hbo-, wo-master, doctor (%)
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Nederland;13115700;9,4;19,5;41,5;19;10,6
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Noord-Nederland (LD);1307700;8,7;20,1;45,8;17,9;7,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Oost-Nederland (LD);2748400;9,2;20,4;43,5;18,5;8,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;West-Nederland (LD);6263400;9,5;18,4;39,4;19,5;13,1
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Zuid-Nederland (LD);2796200;9,8;20,7;42;18,8;8,7
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Groningen (PV);454200;8,5;17,9;44,9;18,7;10
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Fryslan (PV);485500;8,7;21,3;46,3;17,9;5,7
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Drenthe (PV);368000;9,1;21,1;46,2;17,1;6,6
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Overijssel (PV);865800;9;20,2;44,7;18,6;7,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Flevoland (PV);316400;9,5;20,6;45,9;17,3;6,6
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Gelderland (PV);1566200;9,2;20,5;42,4;18,6;9,3
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Utrecht (PV);985900;8;16,7;36,9;21,6;16,7
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Noord-Holland (PV);2186100;9;17,4;38,1;20,5;15
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Zuid-Holland (PV);2806000;10,5;19,4;40,6;18,3;11,2
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Zeeland (PV);285400;8,3;23,1;46,7;16,4;5,5
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Noord-Brabant (PV);1937800;9,4;20,5;41,8;19,2;9,1
+Totaal mannen en vrouwen;15 tot 75 jaar;2018;Limburg (PV);858300;10,7;21,2;42,6;17,7;7,8

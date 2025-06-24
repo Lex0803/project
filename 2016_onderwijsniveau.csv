@@ -1,18 +1,18 @@
-﻿"Geslacht";"Leeftijd";"Perioden";"Regio's";"Bevolking (aantal)";"Onderwijsniveau 5 categorieën/11 Basisonderwijs (%)";"Onderwijsniveau 5 categorieën/12 Vmbo, havo-, vwo-onderbouw, mbo1 (%)";"Onderwijsniveau 5 categorieën/21 Havo, vwo, mbo2-4 (%)";"Onderwijsniveau 5 categorieën/31 Hbo-, wo-bachelor (%)";"Onderwijsniveau 5 categorieën/32 Hbo-, wo-master, doctor (%)"
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Nederland";12939500;10,1;20,2;41,6;17,9;10,2
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Noord-Nederland (LD)";1303200;9,4;20,6;45,6;17,2;7,2
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Oost-Nederland (LD)";2708800;9,8;21,2;43,4;17,6;8
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"West-Nederland (LD)";6155300;10,3;19;39,7;18,4;12,6
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Zuid-Nederland (LD)";2772200;10,3;21,6;42,1;17,6;8,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Groningen (PV)";453500;9;18,2;45,4;17,9;9,6
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Fryslân (PV)";483700;9,9;21,8;45,9;16,9;5,5
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Drenthe (PV)";366000;9,4;22,2;45,3;16,7;6,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Overijssel (PV)";856000;9,8;20,9;44,6;17,6;7,2
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Flevoland (PV)";308600;10,1;21,2;45,6;16,7;6,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Gelderland (PV)";1544200;9,7;21,4;42,3;17,8;8,8
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Utrecht (PV)";966500;8,6;17,3;37,5;20,6;16,1
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Noord-Holland (PV)";2147500;9,8;17,9;38,5;19,4;14,4
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Zuid-Holland (PV)";2756900;11,4;20,1;40,7;17,1;10,7
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Zeeland (PV)";284400;9,1;23,2;46,9;15,6;5,3
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Noord-Brabant (PV)";1911500;9,8;21,3;41,9;18,1;8,9
-"Totaal mannen en vrouwen";"15 tot 75 jaar";"2016";"Limburg (PV)";860700;11,5;22,2;42,5;16,5;7,3
+﻿Geslacht;Leeftijd;Perioden;Regio's;Bevolking (aantal);Onderwijsniveau 5 categorien/11 Basisonderwijs (%);Onderwijsniveau 5 categorien/12 Vmbo, havo-, vwo-onderbouw, mbo1 (%);Onderwijsniveau 5 categorien/21 Havo, vwo, mbo2-4 (%);Onderwijsniveau 5 categorien/31 Hbo-, wo-bachelor (%);Onderwijsniveau 5 categorien/32 Hbo-, wo-master, doctor (%)
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Nederland;12939500;10,1;20,2;41,6;17,9;10,2
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Noord-Nederland (LD);1303200;9,4;20,6;45,6;17,2;7,2
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Oost-Nederland (LD);2708800;9,8;21,2;43,4;17,6;8
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;West-Nederland (LD);6155300;10,3;19;39,7;18,4;12,6
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Zuid-Nederland (LD);2772200;10,3;21,6;42,1;17,6;8,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Groningen (PV);453500;9;18,2;45,4;17,9;9,6
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Fryslan (PV);483700;9,9;21,8;45,9;16,9;5,5
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Drenthe (PV);366000;9,4;22,2;45,3;16,7;6,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Overijssel (PV);856000;9,8;20,9;44,6;17,6;7,2
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Flevoland (PV);308600;10,1;21,2;45,6;16,7;6,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Gelderland (PV);1544200;9,7;21,4;42,3;17,8;8,8
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Utrecht (PV);966500;8,6;17,3;37,5;20,6;16,1
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Noord-Holland (PV);2147500;9,8;17,9;38,5;19,4;14,4
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Zuid-Holland (PV);2756900;11,4;20,1;40,7;17,1;10,7
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Zeeland (PV);284400;9,1;23,2;46,9;15,6;5,3
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Noord-Brabant (PV);1911500;9,8;21,3;41,9;18,1;8,9
+Totaal mannen en vrouwen;15 tot 75 jaar;2016;Limburg (PV);860700;11,5;22,2;42,5;16,5;7,3
