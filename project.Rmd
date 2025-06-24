@@ -27,9 +27,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ##2.1 Load in the Data
 
 ```{r loading_data, include=FALSE}
-dataset_1 <- Df2015
+dataset_1 <- Educationlevel2015
 url ("https://opendata.cbs.nl/#/CBS/nl/dataset/85525NED/table")
-dataset_2 <- df_yearly
+dataset_2 <- Unemployment
 url ("https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/werkloosheid-per-provincie")
 ```
 
@@ -64,13 +64,108 @@ head(dataset_2)
 ##3.1 Data cleaning
 
 ```{r}
+#Load the dataset
+Unemployment <- read.csv2("Werkloosheidpercentage.csv") 
+
+#Rename the first column and extract the year from the 'Quarter' column 
+colnames(Unemployment)[1] <- "Quarter" 
+Unemployment$Year <- str_extract(Unemployment$Quarter, "\\d{4}") 
+
+#Replace commas with dots in the numeric columns and convert to numeric 
+#(exclude 'Quarter' and 'Jaar' columns) 
+numeric_cols <- setdiff(colnames(Unemployment), c("Quarter", "Year")) 
+Unemployment[numeric_cols] <- lapply(Unemployment[numeric_cols], function(x) { 
+  as.numeric(str_replace_all(x, ",", ".")) 
+}) 
+
+#Group by year and calculate the mean per column 
+Unemployment_yearly <- Unemployment %>% 
+  group_by(Year) %>% 
+  summarise(across(all_of(numeric_cols), ~round(mean(.x, na.rm = TRUE), 2))) 
+
+#Optional: Export to CSV 
+write.csv(Unemployment_yearly, "Unemployment_by_year.csv", row.names = FALSE)
 
 ```
 
-#we created the file where we can see the total unemployment per year clearly with columns. firstly we renamed the first column to Kwartaal. Then we extracted the years from the data set, so we can group by year. Previously the data was group per quarter per year, so to get a yearly average we calculated the mean from each year per region. To calculate the mean we first converted the necessary numbers to numeric and changed the commas with dots.
+#The file is created where the total unemployment per year with columns is clear. Firstly the first column was renamed to Quarter. Then the years from the data set were extracted, so they could be grouped by year. Previously the data was grouped per quarter per year, so to get a yearly average the mean from each year per region was calculated. To calculate the mean, the necessary numbers were converted to numeric.
+
+```{r}
+Unemployment_yearly <- Unemployment_yearly[-c(9, 10, 11), ]
+```
+
+#The rows for the years 2023, 2024 and 2025 were removed, as these years were not used to make the necessary computations.
+
+```{r}
+#Load in the education level by year datasets
+Educationlevel2015=read.csv2("2015_onderwijsniveau.csv") 
+Educationlevel2016=read.csv2("2016_onderwijsniveau.csv") 
+Educationlevel2017=read.csv2("2017_onderwijsniveau.csv") 
+Educationlevel2018=read.csv2("2018_onderwijsniveau.csv") 
+Educationlevel2019=read.csv2("2019_onderwijsniveau.csv") 
+Educationlevel2020=read.csv2("2020_onderwijsniveau.csv") 
+Educationlevel2021=read.csv2("2021_onderwijsniveau.csv") 
+Educationlevel2022=read.csv2("2022_onderwijsniveau.csv") 
+Educationlevel2023=read.csv2("2023_onderwijsniveau.csv") 
+Educationlevel_by_year=rbind(Educationlevel2015, Educationlevel2016, Educationlevel2017, Educationlevel2018, Educationlevel2019, Educationlevel2020, Educationlevel2021,Educationlevel2022,Educationlevel2023) 
+write.csv(Educationlevel_by_year,"Total_educationlevel.csv", row.names = FALSE) 
+```
+
+#The table with education levels were sorted by year. So, the tables were downloaded by year and then bounded.
+
+```{r}
+#Renamed all the column names to an easier accessible name or to an English word
+Educationlevel_by_year <- Educationlevel_by_year %>%  
+  rename( 
+    Basisonderwijs = Onderwijsniveau.5.categorieën.11.Basisonderwijs...., 
+    VMBO_HAVO_VWO_Onderbouw_MBO_1 = Onderwijsniveau.5.categorieën.12.Vmbo..havo...vwo.onderbouw..mbo1...., 
+    HAVO_VWO_MBO_2_4 = Onderwijsniveau.5.categorieën.21.Havo..vwo..mbo2.4...., 
+    HBO_WO_Bachelor = Onderwijsniveau.5.categorieën.31.Hbo...wo.bachelor...., 
+    HBO_WO_Master_Doctor = Onderwijsniveau.5.categorieën.32.Hbo...wo.master..doctor....,
+    Gender = Geslacht,
+    Age = Leeftijd,
+    Year = Perioden,
+    Region = Regio.s,
+    Population = Bevolking..aantal.
+  )
+```
+
+#The column names in the dataset for the education level by year were simplified and changed to English, to make improve the readability of the dataset.
+
+```{r}
+Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)] 
+```
+
+#Some columns were also deleted to improve the readability. This piece of code was not the only instance when this was used.
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+#Part 3 Quantifying
+
+##3.2 Generate necessary variables
+
+```{r}
+Low_and_High_Education <- Educationlevel_by_year %>% 
+  mutate( 
+    Low_Education_rate = 
+      Basisonderwijs + 
+      VMBO_HAVO_VWO_Onderbouw_MBO_1 + 
+      HAVO_VWO_MBO_2_4, 
+    High_Education_rate =  
+      HBO_WO_Bachelor + 
+      HBO_WO_Master_Doctor 
+  ) 
+```
+
+#The used datasets divided the education level in 5 different parts. To make the computations easier two variables were created, dividing these 5 parts into low education and high education. This was done by adding the percentages in the different parts. Now there were only two variables to use in the computations.
+
+```{r}
+#Added the Unemployment_by_Low_Education column
+Education_Unemployment_yearly_transposed_provinces <- Education_Unemployment_yearly_transposed_provinces %>% 
+  mutate(Unemployment_by_Low_Education = Unemployment / Low_Education_rate) 
+```
+
+#The 
 
 #Part 4 Discussion
 
