@@ -187,4 +187,4 @@ mean_by_provinces$Region_Group <- c(rep("Noord-Nederland", 3), rep("Randstad", 3
 #Plotting the boxplot 
 ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Unemployment_by_Low_Education)) + 
   geom_boxplot() + 
-  labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
+  labs(x = "\nRegion", y = "Unemployment per \nLow Educated\n")
