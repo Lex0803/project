@@ -140,8 +140,6 @@ Low_and_High_Education <- Low_and_High_Education[, -c(6, 7, 8, 9, 10)]
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-#Part 3 Quantifying
-
 ##3.2 Generate necessary variables
 
 ```{r}
@@ -165,7 +163,14 @@ Education_Unemployment_yearly_transposed_provinces <- Education_Unemployment_yea
   mutate(Unemployment_by_Low_Education = Unemployment / Low_Education_rate) 
 ```
 
-#The 
+#The third variable was created by dividing the unemployment by low education rate. This was done to realise a variable to find a connection between the unemployment and the low education rate in each province. By using unemployment and the low education rate, intuitively there should be a high unemployment by low education rate in provinces with a low education rate, and it should be low in provinces with a high education rate. 
+
+##3.3 Visualize temporal variation
+
+```{r}
+plot(, pch = 18) 
+```
+
 
 #Part 4 Discussion
 
