@@ -70,3 +70,23 @@ head(dataset_2)
 #we created the file where we can see the total unemployment per year clearly with columns. firstly we renamed the first column to Kwartaal. Then we extracted the years from the data set, so we can group by year. Previously the data was group per quarter per year, so to get a yearly average we calculated the mean from each year per region. To calculate the mean we first converted the necessary numbers to numeric and changed the commas with dots.
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+#Part 4 Discussion
+
+#At the start of our research, we hypothesized that there would be a clear correlation between education level and unemployment rates within the Netherlands. Specifically, we expected that regions with a lower average education level would have higher unemployment, while regions with a higher education level would experience lower unemployment. This expectation was based on the general assumption that higher education provides individuals with better job opportunities and employability.
+#However, after processing the datasets and visualizing the results in graphs, our findings challenged this expectation. For example, the province of Zeeland had the highest proportion of low-educated individuals, yet it also had the lowest unemployment rate of all provinces. This was a surprising outcome that did not align with our initial hypothesis.
+#Another notable finding was the contrast between the Randstad region and the northern provinces of the Netherlands. Despite the Randstad being more urbanized and economically developed, the unemployment rate among low-educated individuals was higher in the Randstad than in the northern provinces. This was unexpected, as we initially assumed that urban areas with more diverse economies would offer more opportunities, even for those with lower levels of education.
+
+
+
+#Part 5 Reproducibility
+
+##5.1 Github repository link
+https://github.com/Lex0803/project.git 
+
+##5.2 Reference List
+#CBS Statline. (z.d.). https://opendata.cbs.nl/#/CBS/nl/dataset/85525NED/table
+
+#Centraal Bureau voor de Statistiek. (z.d.). Werkloosheid per provincie. Centraal Bureau Voor de Statistiek. https://www.cbs.nl/nl-nl/visualisaties/dashboard-arbeidsmarkt/werklozen/werkloosheid-per-provincie 
+
