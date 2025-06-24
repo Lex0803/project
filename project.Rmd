@@ -169,8 +169,14 @@ Education_Unemployment_yearly_transposed_provinces <- Education_Unemployment_yea
 
 The third variable was created by dividing the unemployment by low education rate. This was done to realise a variable to find a connection between the unemployment and the low education rate in each province. By using unemployment and the low education rate, intuitively there should be a high unemployment by low education rate in provinces with a low education rate, and it should be low in provinces with a high education rate. 
 
+<<<<<<< HEAD
 ## 3.3 Visualize temporal variation
 
+=======
+##3.3 Visualize temporal variation
+#This line graph shows the national trend in unemployment rates among low-educated individuals in the Netherlands from 2015 to 2022.
+# It is relevant for emphasizing the overall long-term progress, while showing that low-educated people still face employment instability.
+>>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
 ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
   geom_line() + 
@@ -178,8 +184,14 @@ ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) +
   scale_x_continuous(breaks = seq(2015, 2022, by = 1), lim = c(2015, 2022)) 
 ```
 
+<<<<<<< HEAD
 ## 3.4 Visualize spatial variation
 
+=======
+##3.4 Visualize spatial variation
+#This choropleth map shows the regional distribution of unemployment rates among low-educated individuals in 2022 across Dutch provinces. The color gradient from blue to red indicates lower to higher unemployment. 
+#This plot is key in showing that regional differences play a major role in unemployment outcomes. Despite having the highest share of low-educated residents, Zeeland has the lowest unemployment, contradicting the expectation that low education automatically leads to higher unemployment. 
+>>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
 ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) + 
   geom_sf(color = "white", size = 0.2) + 
@@ -187,16 +199,28 @@ ggplot(map_data, aes(fill = Unemployment_by_Low_Education)) +
                       name = "Unemployed per\nLow Educated\nin 2022") 
 ```
 
+<<<<<<< HEAD
 ## 3.5 Visualize sub-population variation
 
+=======
+##3.5 Visualize sub-population variation
+#This boxplot compares the distribution of unemployment rates among low-educated individuals in two regions of the Netherlands: the Randstad and the Northern Netherlands 
+#This plot is especially relevant to our research question because it directly visualizes regional differences in unemployment for low-educated individuals.
+>>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
 ggplot(data = mean_by_provinces, mapping = aes(x = Region_Group, y = Mean_Unemployment_by_Low_Education)) + 
   geom_boxplot() + 
   labs(x = "\nRegion", y = "Unemployment by \nLow Educated\n")
 ```
 
+<<<<<<< HEAD
 ## 3.6 Event analysis
 
+=======
+##3.6 Event analysis
+#This line graph shows the national trend in unemployment rates among low-educated individuals in the Netherlands from 2015 to 2022. The vertical red line at 2020 marks the start of the COVID-19 pandemic.
+#This plot is important because it illustrates that unemployment among low-educated individuals was steadily decreasing from 2015 to 2019. However, there is a slight increase in 2020, likely due to the pandemic, after which the rate continues to decline. This supports the argument that while unemployment is generally improving, low-educated individuals remain vulnerable during economic shocks.
+>>>>>>> f658a5e9b5ba6a90c29fce0c67ccfa0d6dac5924
 ```{r}
 ggplot(Education_Employment, aes(x = Year, y = Unemployment_by_Low_Education)) + 
   geom_line() + 
